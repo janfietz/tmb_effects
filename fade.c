@@ -1,13 +1,15 @@
 /**
- * @file    color.c
- * @brief   color algorithms.
+ * @file    fade.c
+ * @brief
  *
  * @addtogroup effects
  * @{
  */
 
-#include "color.h"
+#include "fade.h"
 #include <stdlib.h>
+#include "float.h"
+#include "math.h"
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
@@ -31,29 +33,31 @@
 /*===========================================================================*/
 
 /**
- * @brief   Copy one color to another.
+ * @brief
  *
  */
 
-void ColorCopy(const struct Color* src, struct Color* dst)
+float FadeUpdateState(systime_t timeDiff, systime_t period, struct EffectFadeState* state)
 {
-    dst->R = src->R;
-    dst->G = src->G;
-    dst->B = src->B;
+    float val = 1.0f;
+    if (timeDiff > state->fadesequence)
+    {
+        state->fadesequence = 0;
+    }
+    else
+    {
+        state->fadesequence -= timeDiff;
+    }
+
+    val = sinf(((float)state->fadesequence/(float)period) * (M_PI / 2.0));
+
+    return val;
+
 }
 
-void ColorRandom(struct Color* dst)
+void FadeResetState(systime_t period, struct EffectFadeState* state)
 {
-    dst->R = rand() % 256;
-    dst->G = rand() % 256;
-    dst->B = rand() % 256;
-}
-
-void ColorScale(struct Color* color, float scale)
-{
-    color->R = color->R * scale;
-    color->G = color->G * scale;
-    color->B = color->B * scale;
+    state->fadesequence = period;
 }
 
 /** @} */

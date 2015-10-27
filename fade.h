@@ -1,16 +1,19 @@
 
 /**
- * @file    color.h
+ * @file    fade.h
  * @brief
  *
  * @addtogroup effects
  * @{
  */
 
-#ifndef _COLOR_H_
-#define _COLOR_H_
+#ifndef _FADE_H_
+#define _FADE_H_
 
-#include <stdint.h>
+#include "effect_defines.h"
+#include "color.h"
+
+#include <stdbool.h>
 /*===========================================================================*/
 /* Effect constants.                                                         */
 /*===========================================================================*/
@@ -26,11 +29,9 @@
 /*===========================================================================*/
 /* Driver data structures and types.                                         */
 /*===========================================================================*/
-struct Color
+struct EffectFadeState
 {
-    uint8_t R;
-    uint8_t G;
-    uint8_t B;
+    systime_t fadesequence;
 };
 
 /*===========================================================================*/
@@ -41,19 +42,16 @@ struct Color
 /* External declarations.                                                    */
 /*===========================================================================*/
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-    void ColorCopy(const struct Color* src, struct Color* dst);
-    void ColorRandom(struct Color* dst);
-    uint32_t ColorToRGBValue(const struct Color* src);
-    void ColorScale(struct Color* color, float scale);
+    float FadeUpdateState(systime_t time, systime_t period, struct EffectFadeState* state);
+    void FadeResetState(systime_t period, struct EffectFadeState* state);
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* HAL_USE_ws2811 */
+#endif /* _FADE_H_ */
 
 
 /** @} */

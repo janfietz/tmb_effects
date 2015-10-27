@@ -1,16 +1,19 @@
 
 /**
- * @file    color.h
+ * @file    effect_randompixels.h
  * @brief
  *
  * @addtogroup effects
  * @{
  */
 
-#ifndef _COLOR_H_
-#define _COLOR_H_
+#ifndef _EFFECT_RANDOMPIXELS_H_
+#define _EFFECT_RANDOMPIXELS_H_
 
-#include <stdint.h>
+#include "effect_defines.h"
+#include "effect.h"
+#include "color.h"
+#include <stdbool.h>
 /*===========================================================================*/
 /* Effect constants.                                                         */
 /*===========================================================================*/
@@ -26,11 +29,20 @@
 /*===========================================================================*/
 /* Driver data structures and types.                                         */
 /*===========================================================================*/
-struct Color
+struct EffectRandomPixelsCfg
 {
-    uint8_t R;
-    uint8_t G;
-    uint8_t B;
+    systime_t spawninterval;
+
+    struct Color color;
+    bool randomRed;
+    bool randomGreen;
+    bool randomBlue;
+};
+
+struct EffectRandomPixelsData
+{
+    systime_t lastspawn;
+    struct Color* pixelColors;
 };
 
 /*===========================================================================*/
@@ -41,19 +53,18 @@ struct Color
 /* External declarations.                                                    */
 /*===========================================================================*/
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-    void ColorCopy(const struct Color* src, struct Color* dst);
-    void ColorRandom(struct Color* dst);
-    uint32_t ColorToRGBValue(const struct Color* src);
-    void ColorScale(struct Color* color, float scale);
+    void EffectRandomPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
+            void* effectdata, struct Effect* next, struct DisplayBuffer* display);
+    void EffectRandomPixelsReset(int16_t x, int16_t y, systime_t time, void* effectcfg,
+            void* effectdata, struct Effect* next);
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* HAL_USE_ws2811 */
+#endif /* _EFFECT_RANDOMCOLOR_H_ */
 
 
 /** @} */

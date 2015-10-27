@@ -1,16 +1,20 @@
 
 /**
- * @file    color.h
+ * @file    effect_fallingixels.h
  * @brief
  *
  * @addtogroup effects
  * @{
  */
 
-#ifndef _COLOR_H_
-#define _COLOR_H_
+#ifndef _EFFECT_FALLINGPIXELS_H_
+#define _EFFECT_FALLINGPIXELS_H_
 
-#include <stdint.h>
+#include "effect_defines.h"
+#include "effect.h"
+#include "color.h"
+#include "fade.h"
+#include <stdbool.h>
 /*===========================================================================*/
 /* Effect constants.                                                         */
 /*===========================================================================*/
@@ -26,11 +30,34 @@
 /*===========================================================================*/
 /* Driver data structures and types.                                         */
 /*===========================================================================*/
-struct Color
+struct EffectFallingPixelsCfg
 {
-    uint8_t R;
-    uint8_t G;
-    uint8_t B;
+    systime_t spawninterval;
+    systime_t fadeperiod;
+
+    struct Color color;
+    bool randomRed;
+    bool randomGreen;
+    bool randomBlue;
+};
+
+struct EffectFallingPixelHead
+{
+    struct Color color;
+    bool active;
+    systime_t speed;
+    systime_t time;
+    int16_t posX;
+    int16_t posY;
+};
+
+struct EffectFallingPixelsData
+{
+    systime_t lastspawn;
+    systime_t lastupdate;
+    struct Color* pixelColors;
+    struct EffectFadeState* fadeStates;
+    struct EffectFallingPixelHead pixelHeads[30];
 };
 
 /*===========================================================================*/
@@ -41,19 +68,18 @@ struct Color
 /* External declarations.                                                    */
 /*===========================================================================*/
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-    void ColorCopy(const struct Color* src, struct Color* dst);
-    void ColorRandom(struct Color* dst);
-    uint32_t ColorToRGBValue(const struct Color* src);
-    void ColorScale(struct Color* color, float scale);
+    void EffectFallingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
+            void* effectdata, struct Effect* next, struct DisplayBuffer* display);
+    void EffectFallingPixelsReset(int16_t x, int16_t y, systime_t time, void* effectcfg,
+            void* effectdata, struct Effect* next);
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* HAL_USE_ws2811 */
+#endif /* _EFFECT_RANDOMCOLOR_H_ */
 
 
 /** @} */
