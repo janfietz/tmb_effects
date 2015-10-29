@@ -7,6 +7,7 @@
  */
 
 #include "effect_fallingpixels.h"
+#include <stdlib.h>
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
@@ -51,6 +52,9 @@ static void SetRandomColor(struct Color* color, struct EffectFallingPixelsCfg* c
 
 void EffectFallingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg, void* effectdata, struct Effect* next, struct DisplayBuffer* display)
 {
+    (void) x;
+    (void) y;
+    (void) next;
     struct EffectFallingPixelsCfg* cfg = (struct EffectFallingPixelsCfg*) effectcfg;
     struct EffectFallingPixelsData* data = (struct EffectFallingPixelsData*) effectdata;
 
@@ -74,7 +78,7 @@ void EffectFallingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effec
             {
                 pixelHead->time -= pixelHead->speed;
                 pixelHead->posY += 1;
-                int16_t pixelNumber = 0;
+                uint16_t pixelNumber = 0;
                 if (DisplayCoordToLed(pixelHead->posX, pixelHead->posY, &pixelNumber, display) == true)
                 {
                     FadeResetState(cfg->fadeperiod, &data->fadeStates[pixelNumber]);
@@ -95,11 +99,11 @@ void EffectFallingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effec
             pixelHead->posX = rand() % display->width;
             pixelHead->posY = 0;
 
-            pixelHead->speed = 100 + rand() % 100;
+            pixelHead->speed = 1000 + rand() % 100;
             pixelHead->time = 0;
 
             SetRandomColor(&pixelHead->color, cfg);
-            int16_t pixelNumber = 0;
+            uint16_t pixelNumber = 0;
             DisplayCoordToLed(pixelHead->posX, pixelHead->posY, &pixelNumber, display);
             FadeResetState(cfg->fadeperiod, &data->fadeStates[pixelNumber]);
             ColorCopy(&pixelHead->color, &data->pixelColors[pixelNumber]);
@@ -114,7 +118,7 @@ void EffectFallingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effec
     {
         for (height = 0; height < display->height; height++)
         {
-            int16_t pixelNumber = 0;
+            uint16_t pixelNumber = 0;
             DisplayCoordToLed(width, height, &pixelNumber, display);
             float fade = FadeUpdateState(diffUpdate, cfg->fadeperiod, &data->fadeStates[pixelNumber]);
             ColorScale(&data->pixelColors[pixelNumber], fade);
@@ -130,6 +134,18 @@ void EffectFallingPixelsReset(int16_t x, int16_t y, systime_t time, void* effect
 {
     (void) effectcfg;
     (void) effectdata;
+
+    struct EffectFallingPixelsData* data = (struct EffectFallingPixelsData*) effectdata;
+
+    int16_t pixel;
+    for (pixel = 0; pixel < 30; pixel++)
+    {
+        struct EffectFallingPixelHead* pixelHead = &data->pixelHeads[pixel];
+        pixelHead->active = false;
+    }
+
+    data->lastspawn = time;
+    data->lastupdate = time;
 
     EffectReset(next, x, y, time);
 }

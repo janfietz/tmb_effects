@@ -21,10 +21,11 @@ typedef int32_t msg_t;
  */
 typedef uint32_t systime_t;
 
+#ifndef MS2ST
 #define MS2ST(msec)                                                         \
   ((systime_t)(((((uint32_t)(msec)) *                                       \
                  ((uint32_t)1)) + 999UL) / 1000UL))
-
+#endif
 #endif
 
 

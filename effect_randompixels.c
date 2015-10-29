@@ -7,6 +7,7 @@
  */
 
 #include "effect_randompixels.h"
+#include <stdlib.h>
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
@@ -51,6 +52,9 @@ static void SetRandomColor(struct Color* color, struct EffectRandomPixelsCfg* cf
 
 void EffectRandomPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg, void* effectdata, struct Effect* next, struct DisplayBuffer* display)
 {
+    (void) x;
+    (void) y;
+    (void) next;
     struct EffectRandomPixelsCfg* cfg = (struct EffectRandomPixelsCfg*) effectcfg;
     struct EffectRandomPixelsData* data = (struct EffectRandomPixelsData*) effectdata;
 
@@ -68,7 +72,7 @@ void EffectRandomPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effect
     {
         for (height = 0; height < display->height; height++)
         {
-            int16_t pixelNumber = 0;
+            uint16_t pixelNumber = 0;
             DisplayCoordToLed(width, height, &pixelNumber, display);
             if (newColors == true)
             {
@@ -83,7 +87,8 @@ void EffectRandomPixelsReset(int16_t x, int16_t y, systime_t time, void* effectc
         void* effectdata, struct Effect* next)
 {
     (void) effectcfg;
-    (void) effectdata;
+    struct EffectRandomPixelsData* data = (struct EffectRandomPixelsData*) effectdata;
+    data->lastspawn = time;
 
     EffectReset(next, x, y, time);
 }

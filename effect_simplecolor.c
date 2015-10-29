@@ -38,9 +38,8 @@ void EffectSimpleUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
 {
     (void) x;
     (void) y;
+    (void) effectdata;
     struct EffectSimpleColorCfg* cfg = (struct EffectSimpleColorCfg*) effectcfg;
-    struct EffectSimpleColorData* data =
-            (struct EffectSimpleColorData*) effectdata;
 
     if (cfg->fillbuffer == true)
     {

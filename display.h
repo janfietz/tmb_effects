@@ -34,7 +34,7 @@ struct DisplayBuffer
     int16_t width;
     int16_t height;
 
-    struct Color** pixels;
+    struct Color* pixels;
 };
 
 /*===========================================================================*/

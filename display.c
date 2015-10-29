@@ -57,7 +57,7 @@ void DisplayDraw(int16_t x, int16_t y, const struct Color* color, const struct D
     uint16_t lednum = 0;
     if (DisplayCoordToLed(x, y, &lednum, display) == true)
     {
-        ColorCopy(color, display->pixels[lednum]);
+        ColorCopy(color, &display->pixels[lednum]);
     }
 }
 
