@@ -47,6 +47,7 @@ extern "C" {
 #endif
     void ColorCopy(const struct Color* src, struct Color* dst);
     void ColorRandom(struct Color* dst);
+    void ColorBlend(const struct Color* src, const struct Color* dst, float factor, struct Color* result);
     uint32_t ColorToRGBValue(const struct Color* src);
     void ColorScale(struct Color* color, float scale);
 #ifdef __cplusplus
