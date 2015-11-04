@@ -7,6 +7,7 @@
  */
 
 #include "effect_fadingpixels.h"
+#include <stdlib.h>
 
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
@@ -38,6 +39,7 @@ void EffectFadingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effect
 {
     (void) x;
     (void) y;
+    (void) next;
     struct EffectFadingPixelsCfg* cfg = (struct EffectFadingPixelsCfg*) effectcfg;
     struct EffectFadingPixelsData* data =
             (struct EffectFadingPixelsData*) effectdata;
@@ -49,7 +51,7 @@ void EffectFadingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effect
     {
         for (height = 0; height < display->height; height++)
         {
-            int16_t pixelNumber = 0;
+            uint16_t pixelNumber = 0;
             DisplayCoordToLed(width, height, &pixelNumber, display);
             float fade = FadeUpdateState(diff, cfg->fadeperiod, &data->fadeStates[pixelNumber]);
             ColorScale(&data->pixelColors[pixelNumber], fade);
@@ -67,7 +69,7 @@ void EffectFadingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effect
             int16_t x = (int16_t)(rand() % display->width);
             int16_t y = (int16_t)(rand() % display->height);
 
-            int16_t pixelNumber = 0;
+            uint16_t pixelNumber = 0;
             if (DisplayCoordToLed(x, y, &pixelNumber, display) == true)
             {
                 if (cfg->randomColor == true)
@@ -91,6 +93,11 @@ void EffectFadingPixelsReset(int16_t x, int16_t y, systime_t time, void* effectc
 {
     (void) effectcfg;
     (void) effectdata;
+
+    struct EffectFadingPixelsData* data = (struct EffectFadingPixelsData*) effectdata;
+
+    data->lastspawn = time;
+    data->lastupdate = time;
 
     EffectReset(next, x, y, time);
 
