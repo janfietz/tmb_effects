@@ -76,4 +76,19 @@ void ColorBlend(const struct Color* src, const struct Color* dst, float factor, 
     result->B = BlendComponent(src->B, dst->B, factor);
 }
 
+uint32_t ColorToRGBValue(const struct Color* src)
+{
+    uint32_t value = src->R << 16;
+    value += src->G << 8;
+    value += src->B;
+    return value;
+}
+
+void ColorFromRGBValue(uint32_t src, struct Color* dst)
+{
+    dst->R = (src >> 16) & 0x000000ff;
+    dst->G = (src >> 8) & 0x000000ff;
+    dst->B = (src >> 0) & 0x000000ff;
+}
+
 /** @} */
