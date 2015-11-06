@@ -16,6 +16,7 @@ set(TMB_EFFECTS_SRC
    ${CMAKE_CURRENT_SOURCE_DIR}/effect_plasma.c
    ${CMAKE_CURRENT_SOURCE_DIR}/effect_fallingpixels.c
    ${CMAKE_CURRENT_SOURCE_DIR}/effect_volume.c
+   ${CMAKE_CURRENT_SOURCE_DIR}/effect_buttons.c
 )
 
 set(TMB_EFFECTS_HDR
@@ -32,6 +33,7 @@ set(TMB_EFFECTS_HDR
    ${CMAKE_CURRENT_SOURCE_DIR}/effect_plasma.h
    ${CMAKE_CURRENT_SOURCE_DIR}/effect_fallingpixels.h
    ${CMAKE_CURRENT_SOURCE_DIR}/effect_volume.h
+   ${CMAKE_CURRENT_SOURCE_DIR}/effect_buttons.h
 )
 
 add_library(effects STATIC
