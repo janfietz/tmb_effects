@@ -74,8 +74,11 @@ void EffectVolumeUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
         DisplayDraw(center - width, height, &c, display);
     }
 
-    char number = '0' + (cfg->volume / 10);
-    Font5x5DrawChar(center - 2 , 0, number, &cfg->fontColor, display);
+    if (cfg->showNumber == true)
+    {
+        char number = '0' + (cfg->volume / 10);
+        Font5x5DrawChar(center - 2 , 0, number, &cfg->fontColor, display);
+    }
 
     // set next step for animation
     systime_t diffUpdate = time - data->lastStepupdate;
