@@ -99,7 +99,7 @@ void EffectFallingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effec
             pixelHead->posX = rand() % display->width;
             pixelHead->posY = 0;
 
-            pixelHead->speed = 1000 + rand() % 100;
+            pixelHead->speed = cfg->speed + rand() % cfg->speedVariance;
             pixelHead->time = 0;
 
             SetRandomColor(&pixelHead->color, cfg);

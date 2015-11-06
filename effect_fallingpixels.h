@@ -34,6 +34,8 @@ struct EffectFallingPixelsCfg
 {
     systime_t spawninterval;
     systime_t fadeperiod;
+    systime_t speed;
+    systime_t speedVariance;
 
     struct Color color;
     bool randomRed;
