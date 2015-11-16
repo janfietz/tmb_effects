@@ -39,6 +39,7 @@ struct EffectVolumeCfg
     uint8_t volume;
     systime_t speed;
     bool showNumber;
+    bool showBackground;
 };
 
 struct EffectVolumeData

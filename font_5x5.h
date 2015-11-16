@@ -11,6 +11,7 @@
 #define _FONT_5x5_H_
 
 #include "color.h"
+#include "display.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -29,13 +30,6 @@
 /*===========================================================================*/
 /* Driver data structures and types.                                         */
 /*===========================================================================*/
-struct DisplayBuffer
-{
-    int16_t width;
-    int16_t height;
-
-    struct Color* pixels;
-};
 
 /*===========================================================================*/
 /* Driver macros.                                                            */
