@@ -1,18 +1,19 @@
 
 /**
- * @file    fade.h
+ * @file    effect_nightsky.h
  * @brief
  *
  * @addtogroup effects
  * @{
  */
 
-#ifndef _FADE_H_
-#define _FADE_H_
+#ifndef _EFFECT_NIGHTSKY_H_
+#define _EFFECT_NIGHTSKY_H_
 
 #include "effect_defines.h"
+#include "effect.h"
 #include "color.h"
-
+#include "fade.h"
 #include <stdbool.h>
 /*===========================================================================*/
 /* Effect constants.                                                         */
@@ -29,9 +30,20 @@
 /*===========================================================================*/
 /* Driver data structures and types.                                         */
 /*===========================================================================*/
-struct EffectFadeState
+struct EffectNightSkyCfg
 {
-    systime_t fadesequence;
+    struct Color color;
+    bool randomColor;
+    int16_t randomizePropability;
+    systime_t fadeperiod;
+};
+
+struct EffectNightSkyData
+{
+    bool randomizeFades;
+    systime_t lastupdate;
+    struct EffectFadeState* fadeStates;
+    struct Color* pixelColors;
 };
 
 /*===========================================================================*/
@@ -45,15 +57,15 @@ struct EffectFadeState
 #ifdef __cplusplus
 extern "C" {
 #endif
-    float FadeUpdateState(systime_t time, systime_t period, struct EffectFadeState* state);
-    float FadeCyclicUpdateState(systime_t time, systime_t period, struct EffectFadeState* state);
-    void FadeRandomizeState(systime_t period, struct EffectFadeState* state);
-    void FadeResetState(systime_t period, struct EffectFadeState* state);
+    void EffectNightSkyUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
+            void* effectdata, struct Effect* next, struct DisplayBuffer* display);
+    void EffectNightSkyReset(int16_t x, int16_t y, systime_t time, void* effectcfg,
+            void* effectdata, struct Effect* next);
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _FADE_H_ */
+#endif /* _EFFECT_NIGHTSKY_H_ */
 
 
 /** @} */
