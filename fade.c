@@ -37,7 +37,7 @@
  *
  */
 
-float FadeUpdateState(systime_t timeDiff, systime_t period, struct EffectFadeState* state)
+float FadeUpdateState(systime_t timeDiff, uint32_t period, struct EffectFadeState* state)
 {
     float val = 1.0f;
     if (timeDiff > state->fadesequence)
@@ -55,7 +55,7 @@ float FadeUpdateState(systime_t timeDiff, systime_t period, struct EffectFadeSta
 
 }
 
-float FadeCyclicUpdateState(systime_t timeDiff, systime_t period, struct EffectFadeState* state)
+float FadeCyclicUpdateState(systime_t timeDiff, uint32_t period, struct EffectFadeState* state)
 {
 	float val = 1.0f;
 	if (timeDiff > state->fadesequence)
@@ -72,12 +72,12 @@ float FadeCyclicUpdateState(systime_t timeDiff, systime_t period, struct EffectF
 	return val;
 }
 
-void FadeResetState(systime_t period, struct EffectFadeState* state)
+void FadeResetState(uint32_t period, struct EffectFadeState* state)
 {
     state->fadesequence = period;
 }
 
-void FadeRandomizeState(systime_t period, struct EffectFadeState* state)
+void FadeRandomizeState(uint32_t period, struct EffectFadeState* state)
 {
     state->fadesequence = rand() % period;
 }

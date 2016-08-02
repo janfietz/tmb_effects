@@ -31,7 +31,7 @@
 /*===========================================================================*/
 struct EffectFadeState
 {
-    systime_t fadesequence;
+    uint32_t fadesequence;
 };
 
 /*===========================================================================*/
@@ -45,10 +45,10 @@ struct EffectFadeState
 #ifdef __cplusplus
 extern "C" {
 #endif
-    float FadeUpdateState(systime_t time, systime_t period, struct EffectFadeState* state);
-    float FadeCyclicUpdateState(systime_t time, systime_t period, struct EffectFadeState* state);
-    void FadeRandomizeState(systime_t period, struct EffectFadeState* state);
-    void FadeResetState(systime_t period, struct EffectFadeState* state);
+    float FadeUpdateState(systime_t time, uint32_t period, struct EffectFadeState* state);
+    float FadeCyclicUpdateState(systime_t time, uint32_t period, struct EffectFadeState* state);
+    void FadeRandomizeState(uint32_t period, struct EffectFadeState* state);
+    void FadeResetState(uint32_t period, struct EffectFadeState* state);
 #ifdef __cplusplus
 }
 #endif
