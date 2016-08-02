@@ -46,19 +46,21 @@ void EffectNightSkyUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
 
     struct Color pixelColor;
     int16_t width;
-	int16_t height;
+    int16_t height;
     if (data->randomizeFades == true)
     {
-    	data->randomizeFades = false;
-    	for (width = 0; width < display->width; width++)
-		{
-			for (height = 0; height < display->height; height++)
-			{
-				uint16_t pixelNumber = 0;
-				DisplayCoordToLed(width, height, &pixelNumber, display);
-				FadeRandomizeState(cfg->fadeperiod, &data->fadeStates[pixelNumber]);
-			}
-		}
+        data->randomizeFades = false;
+        for (width = 0; width < display->width; width++)
+        {
+            for (height = 0; height < display->height; height++)
+            {
+                uint16_t pixelNumber = 0;
+                DisplayCoordToLed(width, height, &pixelNumber, display);
+                FadeRandomizeState(cfg->fadeperiod, &data->fadeStates[pixelNumber]);
+                float fade = FadeCyclicUpdateState(0, cfg->fadeperiod, &data->fadeStates[pixelNumber]);
+                ColorCopy(&cfg->color, &data->pixelColors[pixelNumber]);
+            }
+        }
     }
 
     systime_t diff = time - data->lastupdate;
@@ -72,14 +74,14 @@ void EffectNightSkyUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
             float fade = FadeCyclicUpdateState(diff, cfg->fadeperiod, &data->fadeStates[pixelNumber]);
             if (fade < 0.01f)
             {
-            	if (cfg->randomColor && ((rand() % cfg->randomizePropability) == 1))
-				{
-					ColorRandom(&data->pixelColors[pixelNumber]);
-				}
-				else
-				{
-					ColorCopy(&cfg->color, &data->pixelColors[pixelNumber]);
-				}
+                if (cfg->randomColor && ((rand() % cfg->randomizePropability) == 1))
+                {
+                    ColorRandom(&data->pixelColors[pixelNumber]);
+                }
+                else
+                {
+                    ColorCopy(&cfg->color, &data->pixelColors[pixelNumber]);
+                }
             }
             ColorCopy(&data->pixelColors[pixelNumber], &pixelColor);
             ColorScale(&pixelColor, fade);

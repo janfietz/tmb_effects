@@ -35,7 +35,7 @@ struct EffectNightSkyCfg
     struct Color color;
     bool randomColor;
     int16_t randomizePropability;
-    systime_t fadeperiod;
+    uint32_t fadeperiod;
 };
 
 struct EffectNightSkyData
