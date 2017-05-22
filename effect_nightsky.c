@@ -57,7 +57,7 @@ void EffectNightSkyUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg,
                 uint16_t pixelNumber = 0;
                 DisplayCoordToLed(width, height, &pixelNumber, display);
                 FadeRandomizeState(cfg->fadeperiod, &data->fadeStates[pixelNumber]);
-                float fade = FadeCyclicUpdateState(0, cfg->fadeperiod, &data->fadeStates[pixelNumber]);
+                FadeCyclicUpdateState(0, cfg->fadeperiod, &data->fadeStates[pixelNumber]);
                 ColorCopy(&cfg->color, &data->pixelColors[pixelNumber]);
             }
         }

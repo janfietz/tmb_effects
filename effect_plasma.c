@@ -57,7 +57,7 @@ void EffectPlasmaUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg, v
     {
         for (height = 0; height < display->height; height++)
         {
-            int16_t pixelNumber = 0;
+            uint16_t pixelNumber = 0;
             DisplayCoordToLed(width, height, &pixelNumber, display);
             if (newColors == true)
             {

@@ -14,7 +14,7 @@
 /*===========================================================================*/
 /* Driver local definitions.                                                 */
 /*===========================================================================*/
-
+#define M_PI_F 3.14159265f
 /*===========================================================================*/
 /* Driver exported variables.                                                */
 /*===========================================================================*/
@@ -49,7 +49,7 @@ float FadeUpdateState(systime_t timeDiff, uint32_t period, struct EffectFadeStat
         state->fadesequence -= timeDiff;
     }
 
-    val = sinf(((float)state->fadesequence/(float)period) * (M_PI / 2.0));
+    val = sinf(((float)state->fadesequence/(float)period) * (M_PI_F / 2.0f));
 
     return val;
 
@@ -67,7 +67,7 @@ float FadeCyclicUpdateState(systime_t timeDiff, uint32_t period, struct EffectFa
 		state->fadesequence -= timeDiff;
 	}
 
-	val = sinf(((float)state->fadesequence/(float)period) * (M_PI));
+	val = sinf(((float)state->fadesequence/(float)period) * (M_PI_F));
 
 	return val;
 }

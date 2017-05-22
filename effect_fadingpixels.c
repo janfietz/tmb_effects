@@ -66,11 +66,11 @@ void EffectFadingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effect
         uint8_t pixel;
         for (pixel = 0; pixel < cfg->number; pixel++)
         {
-            int16_t x = (int16_t)(rand() % display->width);
-            int16_t y = (int16_t)(rand() % display->height);
+            int16_t posX = (int16_t)(rand() % display->width);
+            int16_t posY = (int16_t)(rand() % display->height);
 
             uint16_t pixelNumber = 0;
-            if (DisplayCoordToLed(x, y, &pixelNumber, display) == true)
+            if (DisplayCoordToLed(posX, posY, &pixelNumber, display) == true)
             {
                 if (cfg->randomColor == true)
                 {
