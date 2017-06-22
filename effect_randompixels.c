@@ -60,10 +60,11 @@ void EffectRandomPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effect
 
     bool newColors = false;
     systime_t diff = time - data->lastspawn;
-    if (diff >= cfg->spawninterval)
+    while (diff >= cfg->spawninterval)
     {
         newColors = true;
         data->lastspawn += cfg->spawninterval;
+        diff = time - data->lastspawn;
     }
 
     int16_t width;
