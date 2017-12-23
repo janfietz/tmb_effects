@@ -81,7 +81,7 @@ void EffectFadingPixelsUpdate(int16_t x, int16_t y, systime_t time, void* effect
                     ColorCopy(&cfg->color, &data->pixelColors[pixelNumber]);
                 }
                 FadeResetState(cfg->fadeperiod, &data->fadeStates[pixelNumber]);
-                DisplayDraw(x, y, &data->pixelColors[pixelNumber], display);
+                DisplayDraw(posX, posY, &data->pixelColors[pixelNumber], display);
             }
         }
         data->lastspawn += cfg->spawninterval;
