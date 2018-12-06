@@ -31,7 +31,7 @@
 /*===========================================================================*/
 struct EffectWanderingCfg
 {
-    int speed;
+    systime_t speed;
     int ledbegin;
     int ledend;
     int8_t dir;

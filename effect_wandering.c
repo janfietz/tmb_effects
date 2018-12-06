@@ -49,9 +49,9 @@ void EffectWanderingUpdate(int16_t x, int16_t y, systime_t time, void* effectcfg
     int16_t local_y;
     DisplayLedToCoord(data->pos, &local_x, &local_y, display);
 
-    if (diff >= MS2ST(cfg->speed))
+    if (diff >= cfg->speed)
     {
-        data->lastupdate += MS2ST(cfg->speed);
+        data->lastupdate += cfg->speed;
 
         if (data->pos >= (cfg->ledend))
         {
